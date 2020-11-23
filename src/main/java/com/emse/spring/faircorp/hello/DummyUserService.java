@@ -15,6 +15,9 @@ public class DummyUserService implements UserService {
 
     @Override
     public void greetAll() {
-        greetingService.greet("");
+        String[] names = new String[]{"Elodie", "Charles"};
+        for (String name:names) {
+            greetingService.greet(name);
+        }
     }
 }
