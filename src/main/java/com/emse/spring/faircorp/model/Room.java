@@ -4,9 +4,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import java.util.List;
+import java.util.Set;
 
-@Entity
+@Entity()
 public class Room {
     @Id
     private Long id;
@@ -23,12 +23,11 @@ public class Room {
     @Column
     private Double targetTemperature;
 
-    @Column
-    @OneToMany
-    private List<Heater> heaters;
+    @OneToMany(mappedBy = "room")
+    private Set<Heater> heaters;
 
-    @OneToMany
-    private List<Window> windows;
+    @OneToMany(mappedBy = "room")
+    private Set<Window> windows;
 
     public Room(Integer floor, String name) {
         this.floor = floor;
@@ -78,19 +77,19 @@ public class Room {
         this.targetTemperature = targetTemperature;
     }
 
-    public List<Heater> getHeaters() {
+    public Set<Heater> getHeaters() {
         return heaters;
     }
 
-    public void setHeaters(List<Heater> heaters) {
+    public void setHeaters(Set<Heater> heaters) {
         this.heaters = heaters;
     }
 
-    public List<Window> getWindows() {
+    public Set<Window> getWindows() {
         return windows;
     }
 
-    public void setWindows(List<Window> windows) {
+    public void setWindows(Set<Window> windows) {
         this.windows = windows;
     }
 }

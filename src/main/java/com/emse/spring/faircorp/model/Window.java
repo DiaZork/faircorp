@@ -22,10 +22,11 @@ public class Window {
     public Window() {
     }
 
-    public Window(String name, WindowStatus status) {
+    /*public Window(String name, WindowStatus status) {
         this.windowStatus = status;
         this.name = name;
-    }
+    }*/
+
     public Window(Room room, String name, WindowStatus status) {
         this.room = room;
         this.windowStatus = status;

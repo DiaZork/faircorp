@@ -4,15 +4,13 @@ package com.emse.spring.faircorp.api;
 import com.emse.spring.faircorp.dao.HeaterDao;
 import com.emse.spring.faircorp.dao.RoomDao;
 import com.emse.spring.faircorp.dao.WindowDao;
-import com.emse.spring.faircorp.dto.HeaterDto;
 import com.emse.spring.faircorp.dto.RoomDto;
-import com.emse.spring.faircorp.model.Heater;
+import com.emse.spring.faircorp.model.HeaterStatus;
 import com.emse.spring.faircorp.model.Room;
-import com.emse.spring.faircorp.model.Window;
+import com.emse.spring.faircorp.model.WindowStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,7 +29,7 @@ public class RoomController {
         this.windowDao = windowDao;
     }
 
-    @GetMapping
+    @GetMapping(path = "")
     public List<RoomDto> findAll() {
         return roomDao.findAll().stream().map(RoomDto::new).collect(Collectors.toList());
     }
@@ -52,8 +50,8 @@ public class RoomController {
         }
         room.setCurrentTemperature(dto.getCurrentTemperature());
         room.setTargetTemperature(dto.getTargetTemperature());
-        room.setHeaters(dto.getHeaterIds().stream().map(heaterDao::getOne).collect(Collectors.toList()));
-        room.setWindows(dto.getWindowIds().stream().map(windowDao::getOne).collect(Collectors.toList()));
+        room.setHeaters(dto.getHeaterIds().stream().map(heaterDao::getOne).collect(Collectors.toSet()));
+        room.setWindows(dto.getWindowIds().stream().map(windowDao::getOne).collect(Collectors.toSet()));
         return new RoomDto(room);
     }
 
@@ -65,13 +63,19 @@ public class RoomController {
         roomDao.deleteById(id);
     }
 
-    @PutMapping(path = "/{id]/switchWindows")
+    @PutMapping(path = "/{id}/switchWindows")
     public void switchWindows(@PathVariable Long id) {
-
+        Room room = roomDao.getOne(id);
+        room.setWindows(room.getWindows().stream().peek(window -> window.setWindowStatus(
+                window.getWindowStatus().equals(WindowStatus.OPEN)?WindowStatus.CLOSED:WindowStatus.OPEN
+        )).collect(Collectors.toSet()));
     }
 
-    @PutMapping(path = "/{id]/switchHeaters")
+    @PutMapping(path = "/{id}/switchHeaters")
     public void switchHeaters(@PathVariable Long id) {
-
+        Room room = roomDao.getOne(id);
+        room.setHeaters(room.getHeaters().stream().peek(heater -> heater.setHeaterStatus(
+                heater.getHeaterStatus().equals(HeaterStatus.ON)? HeaterStatus.OFF:HeaterStatus.ON
+        )).collect(Collectors.toSet()));
     }
 }
