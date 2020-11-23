@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface RoomDao extends JpaRepository<Room, String> {
+public interface RoomDao extends JpaRepository<Room, Long> {
     @Query("select r from Room r where r.id =:id")
     Room getOne(@Param("id") Long id);
 }

@@ -25,10 +25,10 @@ public class Room {
 
     @Column
     @OneToMany
-    List<Heater> heaters;
+    private List<Heater> heaters;
 
     @OneToMany
-    List<Window> windows;
+    private List<Window> windows;
 
     public Room(Integer floor, String name) {
         this.floor = floor;
