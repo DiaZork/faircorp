@@ -43,15 +43,15 @@ public class RoomController {
     public RoomDto create(@RequestBody RoomDto dto) {
         Room room;
         if (dto.getId() == null) {
-            room = roomDao.save(new Room(dto.getFloor(), dto.getName()));
+            room = roomDao.save(new Room(dto.getLevel(), dto.getName()));
         }
         else {
             room = roomDao.getOne(dto.getId());
         }
         room.setCurrentTemperature(dto.getCurrentTemperature());
         room.setTargetTemperature(dto.getTargetTemperature());
-        room.setHeaters(dto.getHeaterIds().stream().map(heaterDao::getOne).collect(Collectors.toSet()));
-        room.setWindows(dto.getWindowIds().stream().map(windowDao::getOne).collect(Collectors.toSet()));
+//        room.setHeaters(dto.getHeaterIds().stream().map(heaterDao::getOne).collect(Collectors.toSet()));
+//        room.setWindows(dto.getWindowIds().stream().map(windowDao::getOne).collect(Collectors.toSet()));
         return new RoomDto(room);
     }
 

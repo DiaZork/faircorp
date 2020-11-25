@@ -36,7 +36,7 @@ public class HeaterController {
     @PostMapping
     public HeaterDto create(@RequestBody HeaterDto dto) {
         // WindowDto must always contain the window room
-        Room room = roomDao.getOne(dto.getRoomId());
+        Room room = roomDao.getOne(dto.getRoom().getId());
         Heater heater;
         // On creation id is not defined
         if (dto.getId() == null) {

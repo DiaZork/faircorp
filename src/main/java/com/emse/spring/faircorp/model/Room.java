@@ -12,10 +12,13 @@ public class Room {
     private Long id;
 
     @Column(nullable = false)
-    private Integer floor;
+    private Integer level;
 
     @Column(nullable = false)
     private String name;
+
+    @Column
+    private String type;
 
     @Column
     private Double currentTemperature;
@@ -29,8 +32,8 @@ public class Room {
     @OneToMany(mappedBy = "room")
     private Set<Window> windows;
 
-    public Room(Integer floor, String name) {
-        this.floor = floor;
+    public Room(Integer level, String name) {
+        this.level = level;
         this.name = name;
     }
 
@@ -45,12 +48,12 @@ public class Room {
         this.id = id;
     }
 
-    public Integer getFloor() {
-        return floor;
+    public Integer getLevel() {
+        return level;
     }
 
-    public void setFloor(Integer floor) {
-        this.floor = floor;
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 
     public String getName() {
@@ -59,6 +62,14 @@ public class Room {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public Double getCurrentTemperature() {

@@ -1,32 +1,25 @@
 package com.emse.spring.faircorp.dto;
 
-import com.emse.spring.faircorp.model.Heater;
 import com.emse.spring.faircorp.model.Room;
-import com.emse.spring.faircorp.model.Window;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class RoomDto {
     private Long id;
-    private Integer floor;
+    private Integer level;
     private String name;
+    private String type;
     private Double currentTemperature;
     private Double targetTemperature;
-    private List<Long> heaterIds;
-    private List<Long> windowIds;
 
     public RoomDto() {
     }
 
     public RoomDto(Room room) {
         this.id = room.getId();
-        this.floor = room.getFloor();
+        this.level = room.getLevel();
         this.name = room.getName();
+        this.type = room.getType();
         this.currentTemperature = room.getCurrentTemperature();
         this.targetTemperature = room.getTargetTemperature();
-        this.heaterIds = room.getHeaters().stream().map(Heater::getId).collect(Collectors.toList());
-        this.windowIds = room.getWindows().stream().map(Window::getId).collect(Collectors.toList());
     }
 
     public Long getId() {
@@ -37,12 +30,20 @@ public class RoomDto {
         this.id = id;
     }
 
-    public Integer getFloor() {
-        return floor;
+    public Integer getLevel() {
+        return level;
     }
 
-    public void setFloor(Integer floor) {
-        this.floor = floor;
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getName() {
@@ -67,21 +68,5 @@ public class RoomDto {
 
     public void setTargetTemperature(Double targetTemperature) {
         this.targetTemperature = targetTemperature;
-    }
-
-    public List<Long> getHeaterIds() {
-        return heaterIds;
-    }
-
-    public void setHeaterIds(List<Long> heaterIds) {
-        this.heaterIds = heaterIds;
-    }
-
-    public List<Long> getWindowIds() {
-        return windowIds;
-    }
-
-    public void setWindowIds(List<Long> windowIds) {
-        this.windowIds = windowIds;
     }
 }
