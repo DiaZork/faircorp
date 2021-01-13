@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/rooms")
 @Transactional
@@ -50,8 +51,6 @@ public class RoomController {
         }
         room.setCurrentTemperature(dto.getCurrentTemperature());
         room.setTargetTemperature(dto.getTargetTemperature());
-//        room.setHeaters(dto.getHeaterIds().stream().map(heaterDao::getOne).collect(Collectors.toSet()));
-//        room.setWindows(dto.getWindowIds().stream().map(windowDao::getOne).collect(Collectors.toSet()));
         return new RoomDto(room);
     }
 
