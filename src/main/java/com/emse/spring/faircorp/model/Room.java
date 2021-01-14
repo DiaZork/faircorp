@@ -1,14 +1,12 @@
 package com.emse.spring.faircorp.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.Set;
 
 @Entity()
 public class Room {
     @Id
+    @GeneratedValue
     private Long id;
 
     @Column(nullable = false)
